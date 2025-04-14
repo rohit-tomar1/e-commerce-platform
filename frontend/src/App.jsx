@@ -6,7 +6,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CategoryPage from "./pages/CategoryPage";
-
+import { VerificationPage } from "./pages/VerificationPage";
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +16,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/dashboard1" element={<DashboardPage />} />
+        <Route path="/verify" element={<VerificationPage />} />
 
         <Route path="*" element={<HomePage />} />
 

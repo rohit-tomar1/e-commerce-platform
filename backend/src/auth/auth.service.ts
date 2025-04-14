@@ -5,6 +5,7 @@ import { LoginDto, RegisterDto, RefreshTokenDto } from './dto';
 import { UsersService } from 'src/users/users.service';
 import { EmailService } from 'src/email/email.service';
 import * as crypto from 'crypto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +23,7 @@ export class AuthService {
     }
 
     await this.usersService.create(registerDto);
+    await this.sendVerificationEmail(registerDto.email);
   }
 
   async login(loginDto: LoginDto) {
@@ -70,18 +72,19 @@ export class AuthService {
   }
 
   async initiatePasswordReset(email: string) {
-    const user = await this.usersService.findByEmail(email);
-    if (!user) return;
+    // const user = await this.usersService.findByEmail(email);
+    // if (!user) return;
 
-    const token = crypto.randomBytes(32).toString('hex');
-    const expireAt = new Date(Date.now() + 3600000);
+    // const token = crypto.randomBytes(32).toString('hex');
+    // const expireAt = new Date(Date.now() + 3600000);
 
-    await this.usersService.setPasswordResetToken(user.id, token, expireAt);
-    await this.emailService.sendPasswordResetEmail(user.email, token);
+    // await this.usersService.setPasswordResetToken(user.id, token, expireAt);
+   const token = await this.usersService.createPasswordResetToken(email)
+   await this.emailService.sendPasswordResetEmail(email, token);
   }
 
-  async resetPassword(token: string, newPassword: string) {
-    await this.usersService.resetPassword(token, newPassword);
+  async resetPassword(data: ResetPasswordDto) {
+    await this.usersService.resetPassword(data.token, data.password);
   }
 
   async sendVerificationEmail(email: string) {

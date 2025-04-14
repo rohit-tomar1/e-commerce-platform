@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as crypto from 'crypto';
 import { UpdateUserDto, ChangePasswordDto } from './dto';
+import * as moment from 'moment';
 
 @Injectable()
 export class UsersService {
@@ -64,26 +65,24 @@ export class UsersService {
 
     // Generate random token
     const resetToken = crypto.randomBytes(32).toString('hex');
-    const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
+    const resetTokenExpiry = moment().add(12, 'hours').toDate();
 
     user.passwordResetToken = crypto
       .createHash('sha256')
       .update(resetToken)
       .digest('hex');
     user.passwordResetExpires = resetTokenExpiry;
-
+    console.log('user', user);
     await this.usersRepository.save(user);
-
     return resetToken;
   }
 
   async resetPassword(token: string, newPassword: string): Promise<void> {
-    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-
+    const resetToken = crypto.createHash('sha256').update(token).digest('hex');
     const user = await this.usersRepository.findOne({
       where: {
-        passwordResetToken: hashedToken,
-        passwordResetExpires: new Date(Date.now()),
+        passwordResetToken: resetToken,
+        passwordResetExpires: MoreThan(new Date()),
       },
     });
 
@@ -128,8 +127,8 @@ export class UsersService {
 
   async clearPasswordResetToken(userId: string) {
     await this.usersRepository.update(userId, {
-      passwordResetToken: "",
-      passwordResetExpires: "",
+      passwordResetToken: '',
+      passwordResetExpires: '',
     });
   }
 
@@ -142,7 +141,7 @@ export class UsersService {
   async markEmailAsVerified(userId: string) {
     await this.usersRepository.update(userId, {
       isEmailVerified: true,
-      verificationToken: "",
+      verificationToken: '',
     });
   }
 }

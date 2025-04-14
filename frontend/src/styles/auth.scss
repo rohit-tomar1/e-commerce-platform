@@ -8,6 +8,14 @@
     min-height: 100vh;
     background-color: #f5f5f5;
   }
+
+  .verify-email {
+    text-align: center;
+  }
+
+  .text-center {
+    text-align: center;
+  }
   
   .auth-form {
     background: white;
@@ -22,6 +30,7 @@
       text-align: center;
       color: main.$dark-color;
     }
+
   
     .form-group {
       margin-bottom: 1rem;
@@ -31,7 +40,9 @@
         margin-bottom: 0.5rem;
         font-weight: 500;
       }
-  
+      
+ 
+
       input {
         width: 100%;
         padding: 0.75rem;

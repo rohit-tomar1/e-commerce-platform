@@ -19,13 +19,23 @@ const forgotPassword = async (email) => {
   return response.data;
 };
 
-const resetPasswordUsingToken = async (token) => {
-  const response = await axios.post(`${API_URL}/reset-password`, { token });
+const resetPasswordUsingToken = async (token, password) => {
+  const response = await axios.post(`${API_URL}/reset-password`, {
+    token,
+    password,
+  });
   return response.data;
 };
 
 const verifyEmail = async (token) => {
   const response = await axios.post(`${API_URL}/verify-email`, { token });
+  return response.data;
+};
+
+const resendVerifyEmailLink = async (email) => {
+  const response = await axios.post(`${API_URL}/resend-verification`, {
+    email,
+  });
   return response.data;
 };
 
@@ -41,4 +51,5 @@ export default {
   resetPasswordUsingToken,
   verifyEmail,
   refreshJwt,
+  resendVerifyEmailLink,
 };
