@@ -1,0 +1,59 @@
+@use 'main';
+@use 'sass:color';
+
+.product-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    a {
+        color: inherit;
+    }
+
+    .product-image {
+        height: 200px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        &:hover img {
+            transform: scale(1.05);
+        }
+    }
+
+    .product-info {
+        padding: 1rem;
+
+        h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .price {
+            font-weight: bold;
+            color: main.$primary-color;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    }
+}

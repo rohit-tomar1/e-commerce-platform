@@ -1,0 +1,97 @@
+@use 'main';
+@use 'sass:color';
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .auth-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  
+    h2 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: main.$dark-color;
+    }
+  
+    .form-group {
+      margin-bottom: 1rem;
+  
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+  
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+  
+        &:focus {
+          outline: none;
+          border-color: main.$primary-color;
+        }
+      }
+    }
+  
+    .btn-primary {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: main.$primary-color;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+  
+      &:hover {
+        background-color: color.adjust(main.$primary-color, $lightness: -10%);
+      }
+    }
+  
+    .auth-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+  
+      a {
+        color: main.$primary-color;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  
+    .error-message {
+      color: main.$danger-color;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background-color: color.adjust(main.$danger-color, $lightness: 40%);
+      border-radius: 4px;
+      text-align: center;
+    }
+  }
+
+  .success-message {
+    color: main.$secondary-color;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: color.adjust(main.$secondary-color, $lightness: 40%);
+    border-radius: 4px;
+    text-align: center;
+  }
