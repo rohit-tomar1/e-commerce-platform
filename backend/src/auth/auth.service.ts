@@ -1,11 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../users/user.entity';
+import { User } from '../users/entities/user.entity';
 import { LoginDto, RegisterDto, RefreshTokenDto } from './dto';
 import { UsersService } from 'src/users/users.service';
 import { EmailService } from 'src/email/email.service';
 import * as crypto from 'crypto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { UserRole } from 'src/common/enums/user-role.enum';
 
 @Injectable()
 export class AuthService {
@@ -41,12 +42,17 @@ export class AuthService {
       lastName: user.lastName,
       name: user.firstName + (user.lastName ? ' ' + user.lastName : ''),
       isEmailVerified: user.isEmailVerified,
+      role: user.role || UserRole.CUSTOMER,
     };
     return { token, user: u };
   }
 
   private generateTokens(user: User) {
-    const payload = { email: user.email, sub: user.id };
+    const payload = {
+      email: user.email,
+      sub: user.id,
+      role: user.role || UserRole.CUSTOMER,
+    };
 
     return {
       access_token: this.jwtService.sign(payload),
@@ -79,8 +85,8 @@ export class AuthService {
     // const expireAt = new Date(Date.now() + 3600000);
 
     // await this.usersService.setPasswordResetToken(user.id, token, expireAt);
-   const token = await this.usersService.createPasswordResetToken(email)
-   await this.emailService.sendPasswordResetEmail(email, token);
+    const token = await this.usersService.createPasswordResetToken(email);
+    await this.emailService.sendPasswordResetEmail(email, token);
   }
 
   async resetPassword(data: ResetPasswordDto) {

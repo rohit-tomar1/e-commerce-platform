@@ -1,11 +1,9 @@
-// src/auth/auth.swagger.ts
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBody,
   ApiBearerAuth,
-  ApiQuery,
 } from '@nestjs/swagger';
 import {
   RegisterDto,
