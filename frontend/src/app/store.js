@@ -1,28 +1,34 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage
 import authReducer from "../features/auth/authSlice";
-import productRecer from "../features/products/productSlice";
+import productReducer from "../features/products/productSlice";
+import categoryReducer from "../features/categories/categorySlice";
 
 const persistConfig = {
   key: "root",
   storage, // storage engine (localStorage by default)
+  whitelist: ["auth"],
+  version: 1,
 };
 
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
-const persistedProductRecer = persistReducer(persistConfig, productRecer);
+const rootReducer = combineReducers({
+  auth: authReducer,
+  products: productReducer,
+  categories: categoryReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    auth: persistedAuthReducer,
-    products: persistedProductRecer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
     }),
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export const persistor = persistStore(store);

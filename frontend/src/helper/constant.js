@@ -6,4 +6,5 @@ export const API_STATUS = {
   LOADING: "loading",
   SUCCEEDED: "succeeded",
   FAILED: "failed",
+  IDLE: "idle",
 };
