@@ -7,7 +7,7 @@ export const fetchProductsByCategory = createAsyncThunk(
   async (category, thunkAPI) => {
     try {
       const response = await productService.getProductsByCategory(category);
-      return response.data;
+      return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }

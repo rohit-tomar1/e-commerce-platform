@@ -1,7 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString, IsUUID, Min } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Min } from 'class-validator';
 
 export class FilterProductsDto {
+  @ApiProperty({
+    example: '123e4567-e89b-12d3-a456-426614174000',
+    description: 'Filter by category ID',
+    required: true,
+  })
+  @IsNotEmpty()
+  @IsUUID()
+  categoryId: string;
+
   @ApiProperty({
     example: 10,
     description: 'Maximum number of results',
@@ -45,15 +54,6 @@ export class FilterProductsDto {
   @IsOptional()
   @IsNumber()
   maxPrice?: number;
-
-  @ApiProperty({
-    example: '123e4567-e89b-12d3-a456-426614174000',
-    description: 'Filter by category ID',
-    required: false,
-  })
-  @IsOptional()
-  @IsUUID()
-  categoryId?: string;
 
   @ApiProperty({
     example: 'wireless',

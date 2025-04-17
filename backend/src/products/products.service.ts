@@ -37,7 +37,7 @@ export class ProductsService {
     if (search) {
       where.name = Like(`%${search}%`);
     }
-
+    console.log({where})
     return this.productsRepository.find({
       where,
       relations: ['category'],

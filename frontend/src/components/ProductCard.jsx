@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import '../styles/productCard.scss'
 
 export default function ProductCard({ product }) {
+  console.log({product})
   return (
     <div className="product-card">
       <Link to={`/product/${product.id}`}>
@@ -10,8 +11,8 @@ export default function ProductCard({ product }) {
         </div>
         <div className="product-info">
           <h3>{product.name}</h3>
-          <p className="price">${product.price.toFixed(2)}</p>
-          <p className="rating">Rating: {product.rating}/5</p>
+          <p className="price">${product.price}</p>
+          <p className="rating">Rating: {product.rating || '4.6' }/5</p>
         </div>
       </Link>
     </div>

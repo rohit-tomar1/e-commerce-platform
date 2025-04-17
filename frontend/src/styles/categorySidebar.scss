@@ -1,0 +1,110 @@
+// src/styles/categorySidebar.scss
+.category-sidebar {
+    width: 280px;
+    background-color: white;
+    padding: 1.5rem;
+    border-right: 1px solid #e0e0e0;
+    overflow-y: auto;
+    flex-shrink: 0;
+
+    h2 {
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+        color: #2c3e50;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .category-nav {
+        .category-group {
+            margin-bottom: 0.5rem;
+
+            .parent-category {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.2s;
+                margin-bottom: 0.25rem;
+
+                a {
+                    color: #2c3e50;
+                    text-decoration: none;
+                    font-weight: 500;
+                    flex-grow: 1;
+                }
+
+                .toggle-icon {
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #f1f2f6;
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                }
+
+                &:hover {
+                    background-color: #f1f2f6;
+                }
+
+                &.active {
+                    background-color: #3498db;
+
+                    a {
+                        color: white;
+                    }
+
+                    .toggle-icon {
+                        background-color: rgba(255, 255, 255, 0.2);
+                        color: white;
+                    }
+                }
+            }
+
+            .subcategories {
+                padding-left: 1rem;
+                margin-top: 0.25rem;
+
+                .subcategory {
+                    display: block;
+                    padding: 0.5rem 0.75rem;
+                    color: #7f8c8d;
+                    font-size: 0.9rem;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    transition: all 0.2s;
+
+                    &:hover {
+                        background-color: #f1f2f6;
+                        color: #2c3e50;
+                    }
+
+                    &.active {
+                        background-color: #3498db;
+                        color: white;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 992px) {
+    .category-sidebar {
+        width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+}

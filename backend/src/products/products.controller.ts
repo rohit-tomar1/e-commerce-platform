@@ -46,7 +46,8 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
-  @Roles(UserRole.ADMIN)
+  // @Roles(UserRole.ADMIN)
+  @Roles(UserRole.CUSTOMER)
   @Post()
   @Version('1')
   @ApiCreateProduct()
